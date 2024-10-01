@@ -10,6 +10,9 @@ public class ProductRegistrationFrame extends JFrame {
     private JTextField nameField;
     private JTextField priceField;
     private JTextField cantField;
+    private ProductTableModel tableModel;
+    private JTable productTable;
+
 
     public ProductRegistrationFrame() {
         setTitle("Registro de Productos");
@@ -72,8 +75,21 @@ public class ProductRegistrationFrame extends JFrame {
         gbc.gridwidth = 2;
         panel.add(saveButton, gbc);
 
+        // Crear tabla y su modelo
+        tableModel = new ProductTableModel();
+        productTable = new JTable(tableModel);
+
+        // Crear un panel con scroll para la tabla
+        JScrollPane tableScrollPane = new JScrollPane(productTable);
+        tableScrollPane.setPreferredSize(new Dimension(500, 200));
+
+        // Añadir la tabla y el formulario al frame
+        setLayout(new BorderLayout());
+        add(panel, BorderLayout.NORTH);
+        add(tableScrollPane, BorderLayout.CENTER);
+
         // Agregar el panel al frame
-        add(panel);
+
 
         // Añadir acción al botón de guardar
         saveButton.addActionListener(e -> saveProduct());
@@ -95,6 +111,16 @@ public class ProductRegistrationFrame extends JFrame {
             // Crear un objeto de producto
             Product product = new Product(idProduct, nameProduct, price, quantity);
 
+            // Añadir el producto ingresado a la tabla
+            tableModel.addProduct(product);
+
+            //Limpiar los campos textfield despues de guardar un producto
+            idField.setText("");
+            nameField.setText("");
+            priceField.setText("");
+            cantField.setText("");
+
+            //Mensajes para validar si es le producto se guardo y tuvo un error en el proceso
             JOptionPane.showMessageDialog(this, "Producto guardado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         }catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Por favor, ingresa valores numéricos válidos para Id, Precio y Cantidad.", "Error", JOptionPane.ERROR_MESSAGE);
