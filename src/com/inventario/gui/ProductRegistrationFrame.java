@@ -29,13 +29,13 @@ public class ProductRegistrationFrame extends JFrame {
 
         // Crear y agregar componentes
         JLabel idLabel = new JLabel("Id del Producto:");
-        JTextField idField = new JTextField(15);
+        idField = new JTextField(15);
         JLabel nameLabel = new JLabel("Nombre del Producto:");
-        JTextField nameField = new JTextField(15);
+        nameField = new JTextField(15);
         JLabel priceLabel = new JLabel("Precio:");
-        JTextField priceField = new JTextField(15);
+        priceField = new JTextField(15);
         JLabel cantLabel = new JLabel("Cantidad:");
-        JTextField cantField = new JTextField(15);
+        cantField = new JTextField(15);
         JButton saveButton = new JButton("Guardar");
 
         // Posicionar componentes en el panel
@@ -81,7 +81,7 @@ public class ProductRegistrationFrame extends JFrame {
     private void saveProduct() {
         // Implementa la lógica de guardado
         // Validar los datos
-        if (idField.isEmpty() || nameField.isEmpty() ||priceField.isEmpty() || cantField.isEmpty()) {
+        if (idField.getText().isEmpty() || nameField.getText().isEmpty() || priceField.getText().isEmpty() || cantField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
